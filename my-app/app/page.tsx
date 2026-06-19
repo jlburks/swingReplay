@@ -51,13 +51,13 @@ export default function Home() {
       setError(null);
 
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: {
-          facingMode: { ideal: "environment" },
-          width: { ideal: 1920 },
-          height: { ideal: 1080 },
-        },
-        audio: false,
-      });
+  video: {
+    facingMode: { exact: "environment" },
+    width: { ideal: 1920 },
+    height: { ideal: 1080 },
+  },
+  audio: false,
+});
 
       mediaStreamRef.current = stream;
 
@@ -70,7 +70,7 @@ export default function Home() {
       setStatus("Back camera ready");
     } catch (err) {
       console.error(err);
-      setError("Camera failed. Check camera permission.");
+      setError( "Back camera not found. This device or browser may not expose a rear camera.");
     }
   }
 
