@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import { useRef, useState } from "react";
 
@@ -51,7 +51,11 @@ export default function Home() {
       setError(null);
 
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
+        video: {
+          facingMode: { ideal: "environment" },
+          width: { ideal: 1920 },
+          height: { ideal: 1080 },
+        },
         audio: false,
       });
 
@@ -63,7 +67,7 @@ export default function Home() {
       }
 
       setCameraOn(true);
-      setStatus("Camera ready");
+      setStatus("Back camera ready");
     } catch (err) {
       console.error(err);
       setError("Camera failed. Check camera permission.");
@@ -259,7 +263,7 @@ export default function Home() {
               onClick={startCamera}
               className="col-span-2 rounded-xl bg-green-500 p-3 font-bold text-black"
             >
-              Start Camera
+              Start Back Camera
             </button>
           )}
 
@@ -365,9 +369,7 @@ export default function Home() {
                   Swing {index + 1}: {clip.shotShape}
                 </p>
 
-                <p className="mb-2 text-xs text-zinc-400">
-                  {clip.createdAt}
-                </p>
+                <p className="mb-2 text-xs text-zinc-400">{clip.createdAt}</p>
 
                 <video
                   src={clip.url}
